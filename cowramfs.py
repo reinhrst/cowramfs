@@ -171,8 +171,6 @@ class CowRamFS(Passthrough):
 
     def readdir(self, path, fh):
         log.info("readdir %s", path)
-        print "\n".join(["%s: %s" % e for e in self.entries.iteritems()])
-        print "Current size of entries: %d" % len(self.entries)
 
         originallisting = super(CowRamFS, self).readdir(path, fh)
         for filename in originallisting:
@@ -396,7 +394,7 @@ def main(mountpoint, root):
     global log
     logging.basicConfig()
     log = logging.getLogger("nl.claude.cowramfs")
-    log.setLevel(logging.DEBUG)
+    log.setLevel(logging.INFO)
     fuse.FUSE(CowRamFS(root), mountpoint, foreground=True)
 
 if __name__ == '__main__':
