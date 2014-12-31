@@ -223,9 +223,10 @@ class CowRamFS(Passthrough):
                          stat=self._getstatdict_forcreate(mode))
 
     def statfs(self, path):
-        log.warning("statfs -- not implemented, returning host fs info")
-        # NOTE: returning for the host filesystem which doesn't make sense....
-        return super(CowRamFS, self).statfs(path)
+        log.debug("statfs, returning bogus information")
+        # returning same as example memory fs
+        # http://github.com/terencehonles/fusepy/blob/master/examples/memory.py
+        return dict(f_bsize=512, f_blocks=4096, f_bavail=2048)
 
     def unlink(self, path):
         log.info("unlink %s", path)
